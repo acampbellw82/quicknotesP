@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Notes Dashboard</title>
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="wrap dashboard">
+    <p class="clock" id="clock">--:--:--</p>
+    <p class="date" id="date">Loading date…</p>
+
+    <div class="links">
+      <a class="link-card work" href="work.html">
+        Work
+        <small>Quick work notes</small>
+      </a>
+      <a class="link-card personal" href="personal.html">
+        Personal
+        <small>Quick personal notes</small>
+      </a>
+    </div>
+  </div>
+
+  <script>
+    function updateClock() {
+      const now = new Date();
+      const timeStr = now.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit", second: "2-digit" });
+      const dateStr = now.toLocaleDateString([], { weekday: "long", year: "numeric", month: "long", day: "numeric" });
+      document.getElementById("clock").textContent = timeStr;
+      document.getElementById("date").textContent = dateStr;
+    }
+    updateClock();
+    setInterval(updateClock, 1000);
+  </script>
+</body>
+</html>
