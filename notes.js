@@ -33,7 +33,7 @@
 
   async function fetchBin() {
     const res = await fetch(`${BASE_URL}/latest`, {
-      headers: { "X-Access-Key": API_KEY }
+      headers: { "X-Master-Key": API_KEY }
     });
     if (!res.ok) throw new Error(`Load failed (${res.status})`);
     const json = await res.json();
@@ -45,7 +45,7 @@
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
-        "X-Access-Key": API_KEY
+        "X-Master-Key": API_KEY
       },
       body: JSON.stringify(record)
     });

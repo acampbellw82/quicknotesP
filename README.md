@@ -8,28 +8,31 @@ It's plain HTML/CSS/JS — no build step, no server of your own to run. It's hos
 
 ---
 
-## Part 1 & 2 — Note syncing (jsonbin.io) — already done
+## Part 1 & 2 — Note syncing (jsonbin.io)
 
-`config.js` in this folder is already filled in with your jsonbin.io **Bin ID** and **Access Key**, so you can skip straight to Part 3.
+`config.js` already has your **Bin ID** filled in. You still need to add your **Master Key**:
 
-For reference, this is what makes syncing work, in case you ever need to redo it:
-1. **https://jsonbin.io** free account → account icon → **API Keys** → **Create Access Key** (read + write) → that's the `API_KEY`.
-2. **Bins** → **Create Bin** → content `{ "work": "", "personal": "" }` → **Create** → the ID shown at the top is the `BIN_ID`.
-3. Both values go into `config.js`:
+1. Go to **https://jsonbin.io** and log in.
+2. Click your account icon (top right) → **API Keys**.
+3. Copy your account's **Master Key** (labelled `X-MASTER-KEY` on that page). This is different from a scoped "Access Key" — the master key always has full read/write access to every bin in your own account, so there's nothing extra to configure per bin.
+4. Open `config.js` and replace `PASTE_YOUR_MASTER_KEY_HERE` with that key. It should look like:
    ```js
    window.NOTES_CONFIG = {
      BIN_ID: "6aaffad2ffd5d160531c8843",
-     API_KEY: "$2a$10$IlQ0Kuc0QcR8P8Y88On9feCfFSXj4JgUDtFIbbvQBsblH3D9MFcL6"
+     API_KEY: "your-master-key-goes-here"
    };
    ```
+5. Save the file.
 
-> Note: this key will be visible to anyone who looks at your website's source code once it's on the internet. That's fine for a personal scratch-notes app like this one, but don't use this setup for anything sensitive (passwords, financial info, etc.). If that key is ever compromised or you want to rotate it, generate a new Access Key on jsonbin.io and swap it into `config.js`, then re-upload that one file to GitHub.
+> **Why not the scoped Access Key?** jsonbin.io's Access Keys need to be explicitly granted permission to each individual bin (and to Read + Update specifically) at creation time — if that step is missed, every request comes back `401 Unauthorized`, which is what happened the first time around. The Master Key sidesteps that.
+>
+> Note: this key will be visible to anyone who looks at your website's source code once it's on the internet. That's fine for a personal scratch-notes app like this one, but don't use this setup for anything sensitive (passwords, financial info, etc.). If you ever want to revoke it, jsonbin.io lets you regenerate your Master Key from the API Keys page — just remember to update `config.js` and re-upload it to GitHub afterward.
 
 ---
 
 ## Part 3 — Upload to GitHub (free account)
 
-`config.js` in this folder already has your sync credentials filled in — just upload it as-is.
+Make sure `config.js` has your Master Key filled in (Part 1 & 2 above) before uploading it.
 
 1. Go to **https://github.com** and sign up for a free account if you don't have one.
 2. Once logged in, click the **+** icon (top right) → **New repository**.
